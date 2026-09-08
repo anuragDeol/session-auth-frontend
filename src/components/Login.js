@@ -63,12 +63,14 @@ function Login(props) {
                     type="text"
                     value={formInput?.username}
                     onChange={handleInput}
+                    placeholder="Username"
                 />
                 <input
                     name="password"
                     type="password"
                     value={formInput?.password}
                     onChange={handleInput}
+                    placeholder="Password"
                 />
                 <button type="submit">Login</button>
             </form>
