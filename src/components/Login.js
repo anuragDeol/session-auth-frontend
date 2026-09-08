@@ -1,0 +1,79 @@
+import { useEffect } from "react";
+
+function Login(props) {
+    const { formInput, setFormInput, setUser } = props;
+
+    const initiateUserLogin = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch('http://localhost:7000/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify(formInput)
+            });
+
+            const data = await response.json();
+            if(response.ok) {
+                console.log('User Login successful!', data);
+                setUser(formInput?.username);    
+                setFormInput({
+                    username: "",
+                    password: ""
+                });
+            } else {
+                console.error('User Login Failed:', data?.message);
+            }
+        } catch(error) {
+            console.error('User Login Failed:', error);
+        }
+    }
+
+    useEffect(() => {
+        console.log(formInput);
+    }, [formInput]);
+
+    const handleInput = (e) => {
+        e.preventDefault();
+        if(e.target.name === "username") {
+            setFormInput((prevFormInput) => {
+                return {
+                    ...prevFormInput,
+                    username: e.target.value
+                }
+            })
+        } else if(e.target.name === 'password') {
+            setFormInput((prevFormInput) => {
+                return {
+                    ...prevFormInput,
+                    password: e.target.value
+                }
+            })
+        }
+    }
+
+    return(
+        <div>
+            <form onSubmit={initiateUserLogin}>
+                <input
+                    name="username"
+                    type="text"
+                    value={formInput?.username}
+                    onChange={handleInput}
+                />
+                <input
+                    name="password"
+                    type="password"
+                    value={formInput?.password}
+                    onChange={handleInput}
+                />
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    );
+}
+
+export default Login;
