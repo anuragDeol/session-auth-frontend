@@ -7,11 +7,8 @@ function App() {
         username: "",
         password: ""
     });
-    const [user, setUser] = useState(null);
-
-    // useEffect(() => {
-    //     console.log(user);
-    // }, [user]);
+    const [user, setUser] = useState(localStorage?.getItem('authUser') ? JSON.parse(localStorage?.getItem('authUser')) : null);
+    const [loading, setLoading] = useState(false);
 
     const handleLogout = async () => {
         try {
@@ -28,6 +25,7 @@ function App() {
         if (response.ok) {
             console.log('Logged out successfully!', data);
             setUser(null);
+            localStorage.clear();
         } else {
             console.error('Logout failed:', data?.message || data?.error);
         }
@@ -39,11 +37,14 @@ function App() {
     return (
         <div>
             {
-                false ? 
-                <Login formInput={formInput} setFormInput={setFormInput} /> :
-                <Register formInput={formInput} setFormInput={setFormInput} setUser={setUser} />
+                loading ? "Loading..." : 
+                user ? 
+                <div>Hey {user?.username} You're logged in!</div>
+                : 
+                <Login formInput={formInput} setFormInput={setFormInput} setUser={setUser} setLoading={setLoading} />
             }
-            {user && <button onClick={handleLogout}>Logout</button>}
+            {/* <Register formInput={formInput} setFormInput={setFormInput} setUser={setUser} /> */}
+            {user && <button id='logout-btn' onClick={handleLogout}>Logout</button>}
         </div>
     );
 }

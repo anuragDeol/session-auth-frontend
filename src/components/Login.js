@@ -1,10 +1,15 @@
 import { useEffect } from "react";
 
 function Login(props) {
-    const { formInput, setFormInput, setUser } = props;
+    const { formInput, setFormInput, setUser, setLoading } = props;
 
     const initiateUserLogin = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        setFormInput({
+            username: "",
+            password: ""
+        });
         try {
             const response = await fetch('http://localhost:7000/api/auth/login', {
                 method: 'POST',
@@ -19,16 +24,15 @@ function Login(props) {
             const data = await response.json();
             if(response.ok) {
                 console.log('User Login successful!', data);
-                setUser(formInput?.username);    
-                setFormInput({
-                    username: "",
-                    password: ""
-                });
+                localStorage.setItem('authUser', JSON.stringify(data?.user));
+                setUser(data?.user);
             } else {
                 console.error('User Login Failed:', data?.message);
             }
         } catch(error) {
             console.error('User Login Failed:', error);
+        } finally {
+            setLoading(false);
         }
     }
 
