@@ -11,12 +11,26 @@ function App() {
     const [loading, setLoading] = useState(false);
 
     const checkUserSession = async () => {
-        const response = await fetch('http://localhost:7000/api/auth/me', {
-            method: 'GET',
-            credentials: 'include'
-        });
-        if(!response.ok) {
-            localStorage.removeItem('authUser');
+        setLoading(true);
+        try {
+            const response = await fetch('http://localhost:7000/api/auth/me', {
+                method: 'GET',
+                credentials: 'include'
+            });
+
+            if(response.ok) {
+                const data = await response.json();
+                console.log('User session active');
+                localStorage.setItem('authUser', JSON.stringify(data?.user));
+                setUser(data?.user);
+            } else {
+                localStorage.removeItem('authUser');
+                setUser(null);
+            }
+        } catch(error) {
+            console.error('Something went wrong:', error);
+        } finally {
+            setLoading(false);
         }
     }
 

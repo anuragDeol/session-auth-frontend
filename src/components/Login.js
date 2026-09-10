@@ -21,8 +21,8 @@ function Login(props) {
                 body: JSON.stringify(formInput)
             });
 
-            const data = await response.json();
             if(response.ok) {
+                const data = await response.json();
                 console.log('User Login successful!', data);
                 localStorage.setItem('authUser', JSON.stringify(data?.user));
                 setUser(data?.user);
@@ -30,7 +30,7 @@ function Login(props) {
                 console.error('User Login Failed:', data?.message);
             }
         } catch(error) {
-            console.error('User Login Failed:', error);
+            console.error('Something went wrong:', error);
         } finally {
             setLoading(false);
         }
