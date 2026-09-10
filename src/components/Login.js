@@ -41,7 +41,6 @@ function Login(props) {
     }, [formInput]);
 
     const handleInput = (e) => {
-        e.preventDefault();
         if(e.target.name === "username") {
             setFormInput((prevFormInput) => {
                 return {

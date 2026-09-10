@@ -10,6 +10,21 @@ function App() {
     const [user, setUser] = useState(localStorage?.getItem('authUser') ? JSON.parse(localStorage?.getItem('authUser')) : null);
     const [loading, setLoading] = useState(false);
 
+    const checkUserSession = async () => {
+        const response = await fetch('http://localhost:7000/api/auth/me', {
+            method: 'GET',
+            credentials: 'include'
+        });
+        if(!response.ok) {
+            localStorage.removeItem('authUser');
+        }
+    }
+
+    useEffect(() => {
+        // check user session on page reload
+        checkUserSession();
+    }, []);
+
     const handleLogout = async () => {
         try {
             const response = await fetch('http://localhost:7000/api/auth/logout', {
@@ -25,7 +40,7 @@ function App() {
         if (response.ok) {
             console.log('Logged out successfully!', data);
             setUser(null);
-            localStorage.clear();
+            localStorage.removeItem('authUser');
         } else {
             console.error('Logout failed:', data?.message || data?.error);
         }
