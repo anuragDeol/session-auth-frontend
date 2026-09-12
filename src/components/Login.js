@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { loginAPI } from '../api/authAPI';
 
 function Login(props) {
     const { formInput, setFormInput, setUser, setLoading } = props;
@@ -11,23 +12,13 @@ function Login(props) {
             password: ""
         });
         try {
-            const response = await fetch('http://localhost:7000/api/auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                credentials: 'include',
-                body: JSON.stringify(formInput)
-            });
-
-            if(response.ok) {
-                const data = await response.json();
-                console.log('User Login successful!', data);
-                localStorage.setItem('authUser', JSON.stringify(data?.user));
-                setUser(data?.user);
+            const res = await loginAPI(formInput);
+            if(res?.user) {
+                console.log('DEBUG|Login.js|line35', res);
+                localStorage.setItem('authUser', JSON.stringify(res?.user));
+                setUser(res?.user);
             } else {
-                console.error('User Login Failed:', data?.message);
+                // error thrown
             }
         } catch(error) {
             console.error('Something went wrong:', error);
