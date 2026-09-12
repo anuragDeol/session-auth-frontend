@@ -10,7 +10,7 @@ async function loginAPI(userInput) {
     })
     const data = await response.json();
     if(!response.ok) {
-        throw new Error('Login Failed:', data.error);
+        throw new Error(data?.message || 'Login Failed');
     }
     return data;
 }
@@ -25,7 +25,7 @@ async function logoutAPI() {
     });
     const data = await response.json();
     if(!response.ok) {
-        throw new Error('Logout failed:', data?.error);
+        throw new Error(data?.message || 'Logout Failed');
     }
     return data;
 }

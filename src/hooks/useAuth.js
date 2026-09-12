@@ -29,6 +29,7 @@ function useAuth() {
             setUser(res?.user);
         } catch(error) {
             console.error('Something went wrong:', error);
+            setError(error.message);
             return false;
         } finally {
             setLoading(false);
@@ -44,6 +45,7 @@ function useAuth() {
             setUser(null);
         } catch(error) {
             console.error('Something went wrong:', error);
+            setError(error.message);
             return false;
         } finally {
             setLoading(false);
