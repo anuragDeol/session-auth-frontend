@@ -1,35 +1,18 @@
-import { useEffect } from "react";
-import { loginAPI } from '../api/authAPI';
+import useAuth from '../hooks/useAuth';
 
 function Login(props) {
-    const { formInput, setFormInput, setUser, setLoading } = props;
+    const { formInput, setFormInput, loginAuth } = props;
 
     const initiateUserLogin = async (e) => {
         e.preventDefault();
-        setLoading(true);
-        setFormInput({
-            username: "",
-            password: ""
-        });
-        try {
-            const res = await loginAPI(formInput);
-            if(res?.user) {
-                console.log('DEBUG|Login.js|line35', res);
-                localStorage.setItem('authUser', JSON.stringify(res?.user));
-                setUser(res?.user);
-            } else {
-                // error thrown
-            }
-        } catch(error) {
-            console.error('Something went wrong:', error);
-        } finally {
-            setLoading(false);
+        const res = await loginAuth(formInput);
+        if(res) {
+            setFormInput({
+                username: "",
+                password: ""
+            });
         }
     }
-
-    useEffect(() => {
-        console.log(formInput);
-    }, [formInput]);
 
     const handleInput = (e) => {
         if(e.target.name === "username") {

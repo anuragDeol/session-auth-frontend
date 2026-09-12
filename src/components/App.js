@@ -1,14 +1,14 @@
 import Register from "./Register";
 import Login from "./Login";
 import { useEffect, useState } from "react";
+import useAuth from "../hooks/useAuth";
 
 function App() {
     const [formInput, setFormInput] = useState({
         username: "",
         password: ""
     });
-    const [user, setUser] = useState(localStorage?.getItem('authUser') ? JSON.parse(localStorage?.getItem('authUser')) : null);
-    const [loading, setLoading] = useState(false);
+    const { user, loading, error, setUser, setLoading, setError, loginAuth } = useAuth();
 
     const checkUserSession = async () => {
         setLoading(true);
@@ -70,7 +70,7 @@ function App() {
                 user ? 
                 <div>Hey {user?.username} You're logged in!</div>
                 : 
-                <Login formInput={formInput} setFormInput={setFormInput} setUser={setUser} setLoading={setLoading} />
+                <Login formInput={formInput} setFormInput={setFormInput} loginAuth={loginAuth}  />
             }
             {/* <Register formInput={formInput} setFormInput={setFormInput} setUser={setUser} /> */}
             {user && <button id='logout-btn' onClick={handleLogout}>Logout</button>}
