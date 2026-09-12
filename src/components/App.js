@@ -20,6 +20,13 @@ function App() {
             toast(error);
         }
     }, [error]);
+    
+    const handleLogout = async () => {
+        const res = logoutAuth();
+        if(res) {
+            toast('Logged out!');
+        }
+    }
 
     return (
         <div>
@@ -31,7 +38,7 @@ function App() {
                 <Login formInput={formInput} setFormInput={setFormInput} loginAuth={loginAuth}  />
             }
             {/* <Register formInput={formInput} setFormInput={setFormInput} setUser={setUser} /> */}
-            {user && <button id='logout-btn' onClick={logoutAuth}>Logout</button>}
+            {user && <button id='logout-btn' onClick={handleLogout}>Logout</button>}
             <ToastContainer/>
         </div>
     );

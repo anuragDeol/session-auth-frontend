@@ -1,4 +1,4 @@
-import useAuth from '../hooks/useAuth';
+import { toast } from "react-toastify";
 
 function Login(props) {
     const { formInput, setFormInput, loginAuth } = props;
@@ -7,6 +7,7 @@ function Login(props) {
         e.preventDefault();
         const res = await loginAuth(formInput);
         if(res) {
+            toast('Logged in!')
             setFormInput({
                 username: "",
                 password: ""
