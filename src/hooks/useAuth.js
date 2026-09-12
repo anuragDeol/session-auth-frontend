@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { loginAPI, logoutAPI } from '../api/authAPI';
+import { loginAPI, logoutAPI, userSessionAPI } from '../api/authAPI';
 
 function useAuth() {
     const [user, setUser] = useState(localStorage?.getItem('authUser') ? JSON.parse(localStorage?.getItem('authUser')) : null);
@@ -9,22 +9,13 @@ function useAuth() {
     const checkUserSession = async () => {
         setLoading(true);
         try {
-            const response = await fetch('http://localhost:7000/api/auth/me', {
-                method: 'GET',
-                credentials: 'include'
-            });
-
-            if(response.ok) {
-                const data = await response.json();
-                console.log('User session active');
-                localStorage.setItem('authUser', JSON.stringify(data?.user));
-                setUser(data?.user);
-            } else {
-                localStorage.removeItem('authUser');
-                setUser(null);
-            }
+            const res = await userSessionAPI();
+            localStorage.setItem('authUser', JSON.stringify(res?.user));
+            setUser(res?.user);
         } catch(error) {
             console.error('Something went wrong:', error);
+            localStorage.removeItem('authUser');
+            setUser(null);
         } finally {
             setLoading(false);
         }
@@ -48,7 +39,7 @@ function useAuth() {
     const logoutAuth = async () => {
         setLoading(true);
         try {
-            const res = await logoutAPI();
+            await logoutAPI();
             localStorage.removeItem('authUser');
             setUser(null);
         } catch(error) {

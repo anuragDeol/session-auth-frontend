@@ -30,4 +30,16 @@ async function logoutAPI() {
     return data;
 }
 
-export { loginAPI, logoutAPI };
+async function userSessionAPI() {
+    const response = await fetch('http://localhost:7000/api/auth/me', {
+        method: 'GET',
+        credentials: 'include'
+    });
+    const data = await response.json();
+    if(!response.ok) {
+        throw new Error('Error in getting user session:', data?.error);
+    }
+    return data;
+}
+
+export { loginAPI, logoutAPI, userSessionAPI };
