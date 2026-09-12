@@ -4,64 +4,15 @@ import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 
 function App() {
+    const { user, loading, error, setUser, setLoading, setError, loginAuth, checkUserSession, logoutAuth } = useAuth();
     const [formInput, setFormInput] = useState({
         username: "",
         password: ""
     });
-    const { user, loading, error, setUser, setLoading, setError, loginAuth } = useAuth();
-
-    const checkUserSession = async () => {
-        setLoading(true);
-        try {
-            const response = await fetch('http://localhost:7000/api/auth/me', {
-                method: 'GET',
-                credentials: 'include'
-            });
-
-            if(response.ok) {
-                const data = await response.json();
-                console.log('User session active');
-                localStorage.setItem('authUser', JSON.stringify(data?.user));
-                setUser(data?.user);
-            } else {
-                localStorage.removeItem('authUser');
-                setUser(null);
-            }
-        } catch(error) {
-            console.error('Something went wrong:', error);
-        } finally {
-            setLoading(false);
-        }
-    }
 
     useEffect(() => {
-        // check user session on page reload
         checkUserSession();
     }, []);
-
-    const handleLogout = async () => {
-        try {
-            const response = await fetch('http://localhost:7000/api/auth/logout', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json'
-            },
-            credentials: 'include'
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            console.log('Logged out successfully!', data);
-            setUser(null);
-            localStorage.removeItem('authUser');
-        } else {
-            console.error('Logout failed:', data?.message || data?.error);
-        }
-        } catch (error) {
-            console.error('Logout failed:', error);
-        }
-    }
 
     return (
         <div>
@@ -73,7 +24,7 @@ function App() {
                 <Login formInput={formInput} setFormInput={setFormInput} loginAuth={loginAuth}  />
             }
             {/* <Register formInput={formInput} setFormInput={setFormInput} setUser={setUser} /> */}
-            {user && <button id='logout-btn' onClick={handleLogout}>Logout</button>}
+            {user && <button id='logout-btn' onClick={logoutAuth}>Logout</button>}
         </div>
     );
 }
