@@ -1,34 +1,18 @@
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 function Register(props) {
-    const { formInput, setFormInput, setUser } = props;
+    const { formInput, setFormInput, registerAuth } = props;
 
     const initiateUserRegisteration = async (e) => {
         e.preventDefault();
-        try {
-            const response = await fetch('http://localhost:7000/api/auth/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                credentials: 'include',
-                body: JSON.stringify(formInput)
+        const res = await registerAuth(formInput);
+        if(res) {
+            toast('Registered and logged in successfully!')
+            setFormInput({
+                username: "",
+                password: ""
             });
-
-            const data = await response.json();
-            if(response.ok) {
-                console.log('User Registeration successful!', data);
-                setUser(formInput?.username);    
-                setFormInput({
-                    username: "",
-                    password: ""
-                });
-            } else {
-                console.error('User Registeration Failed:', data?.message);
-            }
-        } catch(error) {
-            console.error('User Registeration Failed:', error);
         }
     }
 

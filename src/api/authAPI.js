@@ -42,4 +42,21 @@ async function userSessionAPI() {
     return data;
 }
 
-export { loginAPI, logoutAPI, userSessionAPI };
+async function registerAPI(userInput) {
+    const response = await fetch('http://localhost:7000/api/auth/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(userInput)
+    })
+    const data = await response.json();
+    if(!response.ok) {
+        throw new Error(data?.message || 'User registeration failed');
+    }
+    return data;
+}
+
+export { loginAPI, logoutAPI, userSessionAPI, registerAPI };

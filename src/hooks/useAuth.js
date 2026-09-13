@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { loginAPI, logoutAPI, userSessionAPI } from '../api/authAPI';
+import { loginAPI, logoutAPI, registerAPI, userSessionAPI } from '../api/authAPI';
 
 function useAuth() {
     const [user, setUser] = useState(localStorage?.getItem('authUser') ? JSON.parse(localStorage?.getItem('authUser')) : null);
@@ -10,8 +10,10 @@ function useAuth() {
         setLoading(true);
         try {
             const res = await userSessionAPI();
-            localStorage.setItem('authUser', JSON.stringify(res?.user));
-            setUser(res?.user);
+            if(res?.user) {
+                localStorage.setItem('authUser', JSON.stringify(res?.user));
+                setUser(res?.user);
+            }
         } catch(error) {
             console.error('Something went wrong:', error);
             localStorage.removeItem('authUser');
@@ -25,8 +27,10 @@ function useAuth() {
         setLoading(true);
         try {
             const res = await loginAPI(userInput);
-            localStorage.setItem('authUser', JSON.stringify(res?.user));
-            setUser(res?.user);
+            if(res?.user) {
+                localStorage.setItem('authUser', JSON.stringify(res?.user))
+                setUser(res?.user);
+            }
         } catch(error) {
             console.error('Something went wrong:', error);
             setError(error.message);
@@ -53,7 +57,25 @@ function useAuth() {
         return true;
     }
 
-    return { user, loading, error, setUser, setLoading, setError, loginAuth, logoutAuth, checkUserSession };
+    const registerAuth = async (userInput) => {
+        setLoading(true);
+        try {
+            const res = await registerAPI(userInput);
+            if(res?.user) {
+                localStorage.setItem('authUser', JSON.stringify(res?.user))
+                setUser(res?.user);
+            }
+        } catch(error) {
+            console.error('Something went wrong:', error);
+            setError(error.message);
+            return false;
+        } finally {
+            setLoading(false);
+        }
+        return true;
+    }
+
+    return { user, loading, error, setUser, setLoading, setError, loginAuth, logoutAuth, checkUserSession, registerAuth };
 }
 
 export default useAuth;

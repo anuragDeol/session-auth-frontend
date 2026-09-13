@@ -5,14 +5,14 @@ import useAuth from "../hooks/useAuth";
 import { ToastContainer, toast } from 'react-toastify';
 
 function App() {
-    const { user, loading, loginAuth, error, setError, checkUserSession, logoutAuth } = useAuth();
+    const { user, loading, loginAuth, error, setError, checkUserSession, logoutAuth, registerAuth } = useAuth();
     const [formInput, setFormInput] = useState({
         username: "",
         password: ""
     });
-    // const notify = () => toast("Wow so easy!");
 
     useEffect(() => {
+        setError(null);
         checkUserSession();
     }, []);
     useEffect(() => {
@@ -35,9 +35,9 @@ function App() {
                 user ? 
                 <div>Hey {user?.username} You're logged in!</div>
                 : 
-                <Login formInput={formInput} setFormInput={setFormInput} loginAuth={loginAuth}  />
+                <Register formInput={formInput} setFormInput={setFormInput} registerAuth={registerAuth} />
+                // <Login formInput={formInput} setFormInput={setFormInput} loginAuth={loginAuth}  />
             }
-            {/* <Register formInput={formInput} setFormInput={setFormInput} setUser={setUser} /> */}
             {user && <button id='logout-btn' onClick={handleLogout}>Logout</button>}
             <ToastContainer/>
         </div>
