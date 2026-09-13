@@ -1,5 +1,7 @@
+import { API_BASE_URL } from "../utils";
+
 async function loginAPI(userInput) {
-    const response = await fetch('http://localhost:7000/api/auth/login', {
+    const response = await fetch(`${API_BASE_URL}api/auth/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -16,7 +18,7 @@ async function loginAPI(userInput) {
 }
 
 async function logoutAPI() {
-    const response = await fetch('http://localhost:7000/api/auth/logout', {
+    const response = await fetch(`${API_BASE_URL}api/auth/logout`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json'
@@ -31,7 +33,7 @@ async function logoutAPI() {
 }
 
 async function userSessionAPI() {
-    const response = await fetch('http://localhost:7000/api/auth/me', {
+    const response = await fetch(`${API_BASE_URL}api/auth/me`, {
         method: 'GET',
         credentials: 'include'
     });
@@ -43,7 +45,7 @@ async function userSessionAPI() {
 }
 
 async function registerAPI(userInput) {
-    const response = await fetch('http://localhost:7000/api/auth/register', {
+    const response = await fetch(`${API_BASE_URL}api/auth/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
