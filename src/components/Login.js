@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 
 function Login(props) {
-    const { formInput, setFormInput, loginAuth } = props;
+    const { formInput, setFormInput, loginAuth, setRegister } = props;
 
     const initiateUserLogin = async (e) => {
         e.preventDefault();
@@ -51,6 +51,10 @@ function Login(props) {
                     placeholder="Password"
                 />
                 <button type="submit">Login</button>
+                <a onClick={(e) => {
+                    e.preventDefault();
+                    setRegister(true);
+                }}>New User? Register here.</a>
             </form>
         </div>
     );

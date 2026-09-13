@@ -10,6 +10,7 @@ function App() {
         username: "",
         password: ""
     });
+    const [register, setRegister] = useState(true);
 
     useEffect(() => {
         setError(null);
@@ -35,10 +36,11 @@ function App() {
                 user ? 
                 <div>Hey {user?.username} You're logged in!</div>
                 : 
-                <Register formInput={formInput} setFormInput={setFormInput} registerAuth={registerAuth} />
-                // <Login formInput={formInput} setFormInput={setFormInput} loginAuth={loginAuth}  />
+                register ? 
+                <Register formInput={formInput} setFormInput={setFormInput} registerAuth={registerAuth} setRegister={setRegister} /> : 
+                <Login formInput={formInput} setFormInput={setFormInput} loginAuth={loginAuth} setRegister={setRegister} />
             }
-            {user && <button id='logout-btn' onClick={handleLogout}>Logout</button>}
+            {!loading && user && <button id='logout-btn' onClick={handleLogout}>Logout</button>}
             <ToastContainer/>
         </div>
     );

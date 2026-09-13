@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 
 function Register(props) {
-    const { formInput, setFormInput, registerAuth } = props;
+    const { formInput, setFormInput, registerAuth, setRegister } = props;
 
     const initiateUserRegisteration = async (e) => {
         e.preventDefault();
@@ -15,10 +15,6 @@ function Register(props) {
             });
         }
     }
-
-    useEffect(() => {
-        console.log(formInput);
-    }, [formInput]);
 
     const handleInput = (e) => {
         e.preventDefault();
@@ -57,6 +53,10 @@ function Register(props) {
                     placeholder="Password"
                 />
                 <button type="submit">Register</button>
+                <a onClick={(e) => {
+                    e.preventDefault();
+                    setRegister(false);
+                }}>Already registered? Login here.</a>
             </form>
         </div>
     );

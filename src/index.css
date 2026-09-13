@@ -52,3 +52,11 @@ button:hover {
 button:active {
   background-color: #2f57bd;
 }
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:hover {
+  cursor: pointer;
+}
