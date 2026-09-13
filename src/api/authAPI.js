@@ -37,7 +37,7 @@ async function userSessionAPI() {
     });
     const data = await response.json();
     if(!response.ok) {
-        throw new Error('Error in getting user session:', data?.error);
+        throw new Error(data?.message || 'Error in getting user session');
     }
     return data;
 }

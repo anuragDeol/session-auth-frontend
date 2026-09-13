@@ -13,17 +13,17 @@ function App() {
     const [register, setRegister] = useState(true);
 
     useEffect(() => {
-        setError(null);
         checkUserSession();
     }, []);
     useEffect(() => {
         if(error) {
+            setError(null);
             toast(error);
         }
     }, [error]);
     
     const handleLogout = async () => {
-        const res = logoutAuth();
+        const res = await logoutAuth();
         if(res) {
             toast('Logged out!');
         }
