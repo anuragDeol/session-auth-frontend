@@ -1,5 +1,6 @@
 import Register from "./Register";
 import Login from "./Login";
+import LoggedInPage from "./LoggedInPage";
 import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import { ToastContainer, toast } from 'react-toastify';
@@ -34,13 +35,12 @@ function App() {
             {
                 loading ? "Loading..." : 
                 user ? 
-                <div>Hey {user?.username} You're logged in!</div>
+                <LoggedInPage user={user} onLogout={handleLogout} />
                 : 
                 register ? 
                 <Register formInput={formInput} setFormInput={setFormInput} registerAuth={registerAuth} setRegister={setRegister} /> : 
                 <Login formInput={formInput} setFormInput={setFormInput} loginAuth={loginAuth} setRegister={setRegister} />
             }
-            {!loading && user && <button id='logout-btn' onClick={handleLogout}>Logout</button>}
             <ToastContainer
                 position="top-center"
                 autoClose={2500}
