@@ -30,7 +30,7 @@ function App() {
     }
 
     return (
-        <div>
+        <div className="min-h-screen w-full flex items-center justify-center bg-[#f7f2e9] px-4">
             {
                 loading ? "Loading..." : 
                 user ? 
@@ -41,7 +41,14 @@ function App() {
                 <Login formInput={formInput} setFormInput={setFormInput} loginAuth={loginAuth} setRegister={setRegister} />
             }
             {!loading && user && <button id='logout-btn' onClick={handleLogout}>Logout</button>}
-            <ToastContainer/>
+            <ToastContainer
+                position="top-center"
+                autoClose={2500}
+                hideProgressBar={false}
+                closeButton={false}
+                toastClassName="!bg-[#fdfbf6] !text-gray-800 !rounded-2xl !shadow-sm !border !border-[#ece5d8] !font-sans !min-h-0 !py-3"
+                progressClassName="!bg-[#8b6f47] !bg-none"
+            />
         </div>
     );
 }

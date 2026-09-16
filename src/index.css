@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.Toastify__toast .Toastify__progress-bar--default {
+  background: #8b6f47 !important;
+}
