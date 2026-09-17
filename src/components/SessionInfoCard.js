@@ -1,4 +1,4 @@
-// import { maskSessionId, formatExpiry } from "../utils";
+import { formatExpiry } from "../utils";
 
 function SessionInfoCard({ user }) {
     return (
@@ -16,19 +16,16 @@ function SessionInfoCard({ user }) {
                     <dd className="text-gray-900">{user?.username}</dd>
                 </div>
                 <div className="flex justify-between">
-                    <dt className="text-gray-500">Session ID</dt>
-                    {/* <dd className="font-mono text-gray-900">{maskSessionId(user?.sessionId)}</dd> */}
-                    <dd className="font-mono text-gray-900">Masked session id</dd>
-                </div>
-                <div className="flex justify-between">
                     <dt className="text-gray-500">Method</dt>
                     <dd className="text-gray-900">Session Cookie</dd>
                 </div>
-                <div className="flex justify-between">
-                    <dt className="text-gray-500">Expires</dt>
-                    {/* <dd className="text-right text-gray-900">{formatExpiry(user?.expiresAt)}</dd> */}
-                    <dd className="text-right text-gray-900">Expires in</dd>
-                </div>
+                {
+                    user?.expiresAt && 
+                    <div className="flex justify-between">
+                        <dt className="text-gray-500">Expires</dt>
+                        <dd className="text-right text-gray-900">{formatExpiry(user?.expiresAt)}</dd>
+                    </div>
+                }
             </dl>
 
             <div className="mt-4 border-t border-[#ece5d8] pt-4">
