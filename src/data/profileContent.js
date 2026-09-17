@@ -1,24 +1,33 @@
 export const EXPERIENCE = [
     {
-        period: "Oct 2023 - Present",
-        title: "SDE 1",
+        period: "Jan 2025 - Present",
+        title: "Technical Product Consultant",
+        company: "Adobe",
+        description: "Diagnosing and resolving implementation-level defects in enterprise Adobe Analytics deployments through root-cause analysis.",
+        tags: ["Adobe Analytics", "Data Collection", "Web SDK", "Mobile SDK", "Debugging"]
+    },
+    {
+        period: "Oct 2023 - Jan 2025",
+        title: "Software Engineer I",
         company: "Deskera",
-        description: "Building and scaling ERP products with AI, focusing on frontend, performance and developer experience.",
-        tags: ["Next.js", "React", "TypeScript", "Tanstack Query"]
+        description: "Built the frontend for an AI chatbot and led the Gatsby-to-Next.js migration across 6 product suites.",
+        tags: ["Next.js", "React", "TypeScript",  "Node.js", "Express.js", "MongoDB", "TailwindCSS"]
     },
     {
         period: "Jun 2023 - Oct 2023",
-        title: "SDE Trainee",
+        title: "Software Engineer Trainee",
         company: "Deskera",
-        description: "Worked on the AI assistant frontend and contributed to core product features.",
-        tags: ["React", "Node.js", "MongoDB"]
+        description: "Built a real-time chat prototype and integrated 15+ REST APIs across core platform services.",
+        tags: ["React", "Node.js", "Express.js", "MongoDB", "WebSocket", "TailwindCSS"],
+        internship: true
     },
     {
         period: "Sep 2022 - Jan 2023",
         title: "DSA Teaching Assistant",
         company: "Coding Ninjas",
-        description: "Resolved 1000+ doubts, mentored students, and maintained a 4.9/5 rating.",
-        tags: ["Data Structures", "Algorithms", "Mentoring"]
+        description: "Resolved 1000+ doubts and maintained a 4.9/5 rating.",
+        tags: ["Data Structures", "Algorithms"],
+        internship: true
     }
 ];
 
