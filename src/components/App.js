@@ -4,6 +4,7 @@ import LoggedInPage from "./LoggedInPage";
 import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import { ToastContainer, toast } from 'react-toastify';
+import LoadingSpinner from "./LoadingSpinner";
 
 function App() {
     const { user, loading, loginAuth, error, setError, checkUserSession, logoutAuth, registerAuth } = useAuth();
@@ -33,7 +34,7 @@ function App() {
     return (
         <div className="min-h-screen w-full flex items-center justify-center bg-[#f7f2e9] px-4">
             {
-                loading ? "Loading..." : 
+                loading ? <LoadingSpinner /> : 
                 user ? 
                 <LoggedInPage user={user} onLogout={handleLogout} />
                 : 
