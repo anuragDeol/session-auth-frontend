@@ -2,7 +2,7 @@ import { formatExpiry } from "../utils";
 
 function SessionInfoCard({ user }) {
     return (
-        <div className="absolute right-0 top-10 w-80 rounded-2xl border border-[#ece5d8] bg-[#fdfbf6] p-5 shadow-lg">
+        <div className="absolute right-0 top-10 z-50 w-80 rounded-2xl border border-[#ece5d8] bg-[#fdfbf6] p-5 shadow-lg">
             <p className="text-xs tracking-widest text-gray-500">SESSION STATUS</p>
             <div className="mt-2 flex items-center gap-2">
                 <span className="h-2.5 w-2.5 rounded-full bg-green-600" />

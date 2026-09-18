@@ -10,7 +10,7 @@ function LoggedInPage({ user, onLogout }) {
     return (
         <div className="w-full max-w-6xl">
             <div className="mb-10 flex items-center justify-between">
-                <span className="text-sm tracking-widest text-gray-800">Hi! <b>{user?.username}</b></span>
+                <span className="text-sm tracking-widest text-gray-800">Hi! <i><b>{user?.username}</b></i></span>
                 <div className="relative">
                     <button
                         onClick={() => setShowSession((prev) => !prev)}

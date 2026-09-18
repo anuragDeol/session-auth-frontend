@@ -32,8 +32,8 @@ export const EXPERIENCE = [
 ];
 
 export const LINKS = [
-    { label: "View GitHub", href: "https://github.com/anuragDeol", variant: "primary" },
-    { label: "View Resume", href: "#", variant: "secondary" }
+    { label: "View my GitHub", href: "https://github.com/anuragDeol", variant: "primary" },
+    { label: "View my Leetcode", href: "https://leetcode.com/u/anuragdeol/", variant: "secondary" }
 ];
 
 export const BEHIND_THE_LOGIN_POINTS = [
